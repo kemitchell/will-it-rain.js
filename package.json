@@ -1,0 +1,16 @@
+{
+  "name": "will-it-rain",
+  "description": "Does NOAA say it will rain today?",
+  "version": "0.0.0",
+  "author": "Kyle E. Mitchell <kyle@kemitchell.com> (https://kemitchell.com/)",
+  "bin": "will-it-rain",
+  "dependencies": {
+    "moment": "^2.15.2",
+    "noaa-forecasts": "0.0.4"
+  },
+  "files": [
+    "will-it-rain"
+  ],
+  "license": "MIT",
+  "repository": "kemitchell/will-it-rain.js"
+}

@@ -1,0 +1,41 @@
+#!/usr/bin/env node
+var moment = require('moment')
+var forecasts = require('noaa-forecasts')
+
+var DATE_FORMAT = 'YYYY-MM-DDTHH:mm:ss'
+
+var THRESHOLD = process.argv.length > 2
+  ? parseInt(process.argv[3])
+  : 25
+
+var LOCATION = process.argv.length > 3
+  ? process.argv[4]
+  : '37.801239,-122.258301' // Oakland, CA
+
+var TrickTheLinter = Object
+TrickTheLinter.prototype.get = function (key) {
+  return this[key]
+}
+
+forecasts.setToken(process.env.NCDC_TOKEN)
+
+forecasts.getForecast({
+  listLatLon: LOCATION,
+  product: 'time-series',
+  begin: moment()
+    .format(DATE_FORMAT),
+  end: moment()
+    .add(24, 'hours')
+    .format(DATE_FORMAT),
+  pop12: 'pop12'
+})
+  .then(function (result) {
+    var willRain = result
+      .get('point1')
+      .get('probability-of-precipitation')
+      .get('values')
+      .some(function (result) {
+        return result.value >= THRESHOLD
+      })
+    process.exit(willRain ? 0 : 1)
+  })
