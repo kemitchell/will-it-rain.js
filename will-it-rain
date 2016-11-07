@@ -35,7 +35,7 @@ forecasts.getForecast({
       .get('probability-of-precipitation')
       .get('values')
       .some(function (result) {
-        return result.value >= THRESHOLD
+        return parseInt(result.value) >= THRESHOLD
       })
     process.exit(willRain ? 0 : 1)
   })
