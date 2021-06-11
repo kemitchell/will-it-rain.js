@@ -1,18 +1,18 @@
 #!/usr/bin/env node
-var moment = require('moment')
-var forecasts = require('noaa-forecasts')
+const moment = require('moment')
+const forecasts = require('noaa-forecasts')
 
-var DATE_FORMAT = 'YYYY-MM-DDTHH:mm:ss'
+const DATE_FORMAT = 'YYYY-MM-DDTHH:mm:ss'
 
-var THRESHOLD = process.argv.length > 2
+const THRESHOLD = process.argv.length > 2
   ? parseInt(process.argv[3])
   : 25
 
-var LOCATION = process.argv.length > 3
+const LOCATION = process.argv.length > 3
   ? process.argv[4]
   : '37.801239,-122.258301' // Oakland, CA
 
-var TrickTheLinter = Object
+const TrickTheLinter = Object
 TrickTheLinter.prototype.get = function (key) {
   return this[key]
 }
@@ -30,7 +30,7 @@ forecasts.getForecast({
   pop12: 'pop12'
 })
   .then(function (result) {
-    var willRain = result
+    const willRain = result
       .get('point1')
       .get('probability-of-precipitation')
       .get('values')
